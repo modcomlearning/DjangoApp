@@ -21,14 +21,3 @@ urlpatterns = [
     path('', include('members.urls')),
     path('admin/', admin.site.urls),
 ]
-
-# 1. EDA
-# 2. Classfication
-
-# 3. Regression
-
-# 4. Clustering
-
-# 5,6 Recocomender - CB, CF
-# 7. NLTK
-#
