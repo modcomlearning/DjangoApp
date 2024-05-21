@@ -108,8 +108,43 @@ This is a simple example on how to send a response back to the browser.
 But how can we execute the view? Well, we must call the view via a URL. <br>
 
 ## URLs
-
 Create a file named urls.py in the same folder as the views.py file, and type this code in it:
+
+In this File add below code, This code adds a Path to your home view you created in views.py <br>
+
+        from django.urls import path
+        from . import views
+
+        urlpatterns = [
+            path('home/', views.home, name='home'),
+
+        ]
+
+Before, we run our app.  The urls.py file you just created is specific for the members application.
+We have to do some routing in the root directory my_tennis_club as well. <br>
+
+There is a file called urls.py on the my_tennis_club folder, open that file and add the include module in the import statement, and also add a path() function in the urlpatterns[] list, with arguments that will route users that comes in via [127.0.0.1:8000/].
+
+Then your file will look like this:
+
+    from django.contrib import admin
+    from django.urls import path, include
+
+    urlpatterns = [
+        path('', include('members.urls')),
+        path('admin/', admin.site.urls),
+    ]
+
+
+
+If the server is not running, In VS Code terminal, navigate to the /my_tennis_club folder and execute this command<br>
+``` python3 manage.py runserver ```
+
+
+In the browser window, type 127.0.0.1:8000/home/ in the address bar.
+
+below is the output.
+![Alt text](image-2.png)
 
 
 
