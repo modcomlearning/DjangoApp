@@ -149,6 +149,253 @@ below is the output.
 
 
 
+## Templates
+In Django the result is mostly presented in the browser, In order to create web pages use HTML and CSS. <br>
+
+In this section we learn how to create HTML templates in django. <br>
+
+Create a <b>templates</b> folder inside the <b>members</b> folder, and create a HTML file named 
+<b>navbar.html</b>
+
+In navbar.html place below navbar code.
+
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="javascript:void(0)">Logo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/players">Players</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/fixtures">Fixtures</a>
+                </li>
+                </ul>
+                <form class="d-flex">
+                <input class="form-control me-2" type="text" placeholder="Search">
+                <button class="btn btn-primary" type="button">Search</button>
+                </form>
+            </div>
+            </div>
+        </nav> 
+
+
+Create another HTML file named home.html and place below code inside.
+Below code creates a basic home page and includes a navbar.
+
+```
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <title>Home</title>
+    </head>
+    <body>
+        
+        <!-- Include Navbar -->
+        {% include 'navbar.html' %}
+
+        <section class="row">
+            <h1>My Tenis Club</h1>
+        </section>
+    </body>
+    </html>
+```
+
+
+Next we need to call this home.html template in views.py, we modify views.py, home function to return the home.htm template.<br>
+
+Update your views.py to look like belo code.
+
+        from django.shortcuts import render
+        from django.http import HttpResponse
+        from django.template import loader
+        # Create your views here.
+        def home(request):
+            template = loader.get_template('home.html')
+            return HttpResponse(template.render())
+            #return HttpResponse("Hello World")
+
+
+When we run the home route it will use the loader to get_template() and return the home.html as the response on the browser.
+
+Before we run the project check members/urls.py and confirm if home view is set to path.
+We can confirm the home view is put to path and can be accessed through 127.0.0.1:8000/home   <br>
+    from django.urls import path
+    from . import views
+
+    urlpatterns = [
+        path('home/', views.home, name='home'),
+    ]
+
+## Change Settings
+
+To be able to work with more advanced application other than "Hello World!", We have to tell Django that a new app is created.
+<br>
+This is done in the settings.py file in the my_tennis_club folder.
+<br>
+Look up the INSTALLED_APPS[] list and add the members app like this:
+<br>
+
+Add members in the installed apps. see below
+
+# Application definition
+
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        'members'
+    ]
+
+Run your Project and access 127.0.0.1:8000/home
+
+## Static Images in Django
+In your members app folder, create a Folder named static and place your images inside static Folder you created.
+
+In settings.py add this Line
+```
+ STATIC_URL = "static/"
+```
+
+
+Then in your home.html, you will load images using below code.
+```
+ {% load static %}
+<img src="{% static 'kids6.jpg' %}" alt="My image" width="100%">
+```
+
+
+Lets Update our home.html template to look like below. <br>
+```
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>Home</title>
+</head>
+<body>
+    
+    <!-- Include Navbar -->
+    {% include 'navbar.html' %}
+
+    <section class="row container-fluid">
+        <h1>My Tennis Club</h1>
+        <div class="col-md-12">
+            {% load static %}
+            <img src="{% static 'main.jpg' %}" alt="My image" width="100%">
+        </div>
+    </section>
+    <br><br>
+    <section class="row container-fluid">
+        <h2>Services</h2>
+         <div class="col-md-4">
+              <div class="card shadow">
+                {% load static %}
+                <img src="{% static 'kids1.jpg' %}" alt="My image" width="100%">
+                <div class="card-body">
+                      <h2>Kids Classes</h2>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt totam magni neque! At accusantium quibusdam, nemo delectus impedit atque aperiam! Enim labore quis voluptates optio aliquam repellendus amet aut minus.</p>
+                </div>
+              </div>
+         </div>
+
+         <div class="col-md-4">
+            <div class="card shadow">
+                {% load static %}
+                <img src="{% static 'kids2.jpg' %}" alt="My image" width="100%">
+                <div class="card-body">
+                      <h2>Kids Practice</h2>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt totam magni neque! At accusantium quibusdam, nemo delectus impedit atque aperiam! Enim labore quis voluptates optio aliquam repellendus amet aut minus.</p>
+                </div>
+              </div>
+         </div>
+
+         <div class="col-md-4">
+            <div class="card shadow">
+                {% load static %}
+                <img src="{% static 'kids1.jpg' %}" alt="My image" width="100%">
+                <div class="card-body">
+                      <h2>Free Classes</h2>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt totam magni neque! At accusantium quibusdam, nemo delectus impedit atque aperiam! Enim labore quis voluptates optio aliquam repellendus amet aut minus.</p>
+                </div>
+              </div>
+         </div>
+    </section>
+
+
+    <br><br>
+    
+    <section class="row container-fluid">
+        <h2>Packages</h2>
+         <div class="col-md-4">
+              <div class="card shadow">
+                {% load static %}
+                <img src="{% static 'kids4.jpg' %}" alt="My image" width="100%">
+                <div class="card-body">
+                      <h2>Gold</h2>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt totam magni neque! At accusantium quibusdam, nemo delectus impedit atque aperiam! Enim labore quis voluptates optio aliquam repellendus amet aut minus.</p>
+                </div>
+              </div>
+         </div>
+
+         <div class="col-md-4">
+            <div class="card shadow">
+                {% load static %}
+                <img src="{% static 'kids5.jpg' %}" alt="My image" width="100%">
+                <div class="card-body">
+                      <h2>Silver</h2>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt totam magni neque! At accusantium quibusdam, nemo delectus impedit atque aperiam! Enim labore quis voluptates optio aliquam repellendus amet aut minus.</p>
+                </div>
+              </div>
+         </div>
+
+         <div class="col-md-4">
+            <div class="card shadow">
+                {% load static %}
+                <img src="{% static 'kids6.jpg' %}" alt="My image" width="100%">
+                <div class="card-body">
+                      <h2>Bronze</h2>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt totam magni neque! At accusantium quibusdam, nemo delectus impedit atque aperiam! Enim labore quis voluptates optio aliquam repellendus amet aut minus.</p>
+                </div>
+              </div>
+         </div>
+    </section>
+
+    <br><br>
+    <section class="row">
+         <div class="col-md-12 bg-dark">
+                <b class="text-white">Developed by MODCOM</b>
+         </div>
+    </section>
+</body>
+</html>
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
