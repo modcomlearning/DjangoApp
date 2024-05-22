@@ -607,9 +607,13 @@ Updated navbar
 
 ```
 
+Run your project and access http://127.0.0.1:8000/home/
+Your navbar should navigate to players route.
 
+![Alt text](image-4.png)
 
-
+Assignment.
+TODO Fixtures and Gallery.
 
 
 
