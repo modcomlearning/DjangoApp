@@ -271,7 +271,7 @@ In settings.py add this Line
 ```
 
 
-Then in your home.html, you will load images using below code.
+Then in your home.html, you will load images using below code. Here we access a n image named kids.jpg located in static folder. <br>
 ```
  {% load static %}
 <img src="{% static 'kids6.jpg' %}" alt="My image" width="100%">
@@ -386,6 +386,233 @@ Lets Update our home.html template to look like below. <br>
 </body>
 </html>
 ```
+
+Output
+![Alt text](image-3.png)
+
+## Creating another View and Template.
+In this section, we create another template named players.html and connect it to a view in views.py
+In templates folder create a file named players.html
+
+Write below code in players.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Players</title>
+</head>
+<body>
+      <!-- Include Navbar -->
+    {% include 'navbar.html' %}
+    <section class="row container-fluid">
+        <div class="col-md-12">
+            {% load static %}
+            <img src="{% static 'players.jpeg' %}" alt="My image" width="100%">
+        </div>
+    </section>
+
+</body>
+</html>
+
+```
+
+ In views.py add below View Function named players that returns a HTML template.
+```
+ def players(request):
+    template = loader.get_template('players.html')
+    return HttpResponse(template.render())
+   
+```
+
+
+Your complete views.py look like below code snippet.
+```
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.template import loader
+
+
+# Create your views here.
+# Home View
+def home(request):
+    template = loader.get_template('home.html')
+    return HttpResponse(template.render())
+    #return HttpResponse("Hello World")
+
+
+# Players View
+def players(request):
+    template = loader.get_template('players.html')
+    return HttpResponse(template.render())
+    #return HttpResponse("Hello World")
+
+```
+
+In members Folder, Open urls.py and put the path to players view.
+```
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('home/', views.home, name='home'),
+    path('players/', views.players, name='players'),
+]
+```
+
+
+Run your project and access http://127.0.0.1:8000/players/
+
+
+Update your players.html with below code.
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>Players</title>
+</head>
+<body>
+      <!-- Include Navbar -->
+    {% include 'navbar.html' %}
+    <section class="row container-fluid">
+        <div class="col-md-12">
+            {% load static %}
+            <img src="{% static 'players.jpeg' %}" alt="My image" width="100%">
+        </div>
+    </section>
+
+
+    <br><br>
+    <section class="row container-fluid">
+        <h2>Services</h2>
+         <div class="col-md-4">
+              <div class="card shadow">
+                {% load static %}
+                <img src="{% static 'serena.jpeg' %}" alt="My image" width="100%">
+                <div class="card-body">
+                      <h2>Serena</h2>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt totam magni neque! At accusantium quibusdam, nemo delectus impedit atque aperiam! Enim labore quis voluptates optio aliquam repellendus amet aut minus.</p>
+                </div>
+              </div>
+         </div>
+
+         <div class="col-md-4">
+            <div class="card shadow">
+                {% load static %}
+                <img src="{% static 'serena.jpeg' %}" alt="My image" width="100%">
+                <div class="card-body">
+                      <h2>Serena</h2>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt totam magni neque! At accusantium quibusdam, nemo delectus impedit atque aperiam! Enim labore quis voluptates optio aliquam repellendus amet aut minus.</p>
+                </div>
+              </div>
+         </div>
+
+         <div class="col-md-4">
+            <div class="card shadow">
+                {% load static %}
+                <img src="{% static 'serena.jpeg' %}" alt="My image" width="100%">
+                <div class="card-body">
+                      <h2>Serena</h2>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt totam magni neque! At accusantium quibusdam, nemo delectus impedit atque aperiam! Enim labore quis voluptates optio aliquam repellendus amet aut minus.</p>
+                </div>
+              </div>
+         </div>
+    </section>
+
+
+    <br><br>
+    <section class="row container-fluid">
+        <h2>Services</h2>
+         <div class="col-md-4">
+              <div class="card shadow">
+                {% load static %}
+                <img src="{% static 'serena.jpeg' %}" alt="My image" width="100%">
+                <div class="card-body">
+                      <h2>Serena</h2>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt totam magni neque! At accusantium quibusdam, nemo delectus impedit atque aperiam! Enim labore quis voluptates optio aliquam repellendus amet aut minus.</p>
+                </div>
+              </div>
+         </div>
+
+         <div class="col-md-4">
+            <div class="card shadow">
+                {% load static %}
+                <img src="{% static 'serena.jpeg' %}" alt="My image" width="100%">
+                <div class="card-body">
+                      <h2>Serena</h2>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt totam magni neque! At accusantium quibusdam, nemo delectus impedit atque aperiam! Enim labore quis voluptates optio aliquam repellendus amet aut minus.</p>
+                </div>
+              </div>
+         </div>
+
+         <div class="col-md-4">
+            <div class="card shadow">
+                {% load static %}
+                <img src="{% static 'serena.jpeg' %}" alt="My image" width="100%">
+                <div class="card-body">
+                      <h2>Serena</h2>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt totam magni neque! At accusantium quibusdam, nemo delectus impedit atque aperiam! Enim labore quis voluptates optio aliquam repellendus amet aut minus.</p>
+                </div>
+              </div>
+         </div>
+    </section>
+
+    <br><br>
+    <section class="row">
+         <div class="col-md-12 bg-dark">
+                <b class="text-white">Developed by MODCOM</b>
+         </div>
+    </section>
+
+</body>
+</html>
+```
+
+
+In the navbar update the Links to link to respective urls 
+
+Updated navbar
+```
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="javascript:void(0)">Tennis Club</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mynavbar">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/players">Players</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/fixtures">Fixtures</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="text" placeholder="Search">
+          <button class="btn btn-primary" type="button">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav> 
+
+```
+
+
+
+
+
+
+
 
 
 
