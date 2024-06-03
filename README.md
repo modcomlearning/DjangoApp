@@ -617,11 +617,235 @@ TODO Fixtures and Gallery.
 
 
 
+## Part 2
+In this section we will advance our tennis club website to include CRUD Operations, This will demonstrate how to SAVE records to Database, RETRIEVE records, UPDATE records and Delete records. MySQL will be used as our database.
+
+#### Step 1
+Install Xampp <br><br>
+https://www.apachefriends.org/download.html
+
+#### Step 2
+Start and Open Xampp in Localhost <br><br>
+http://localhost/phpmyadmin <br>
+
+Create a Database named 'mydb'.
+
+#### Step 3
+In Django application install pymysql using below command <br>
+     pip3 install pymysql
+
+In your project Folder, Open __init__.py,  and paste below code <br>
+     import pymysql 
+     pymysql.install_as_MySQLdb()
+
+Then in settings.py, add modify the database connections. <br>
+     DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mydb',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST':'localhost',
+        'PORT':'3306',
+      }
+    }
+
+Above code connects to our 'mydb' database in Xampp Localhost.
+
+#### Step 4 : Migrations
+In this step we need to migrate our applications so that it can connect to mysql and create neccessary tables.
+In Terminal, while under your members application folder type below two commands <br><br>
+    python3 manage.py makemigrations
+
+    python3 manage.py migrate
+
+Please confirm in your database that django default tables have been created in 'mydb' database. <br><br>
+
+#### Step 5: Creating Employees Model
+Open models.py, write below code that will be used in Saving data to the database.
+
+        from django.db import models
+        class Employee(models.Model):
+            eid = models.CharField(max_length=10)
+            ename = models.CharField(max_length=50)
+            eemail = models.EmailField()
+            econtact = models.CharField(max_length=10)
+
+            class Meta:
+                db_table = "employee"
+
+            def __str__(self):
+                return self.ename
+
+
+#### Step 6 : Migrations
+In this step we need to migrate our applications so that it can connect to mysql and create employee table.<br><br>
+After below migrations, Confirm in your 'mydb', ifthe employee table is create as per above table. <br>
+
+In Terminal, while under your members application folder type below two commands <br><br>
+    python3 manage.py makemigrations
+
+    python3 manage.py migrate
+
+
+#### Step 7
+In your members app Folder, Create a File named forms.py,  and write below code.
+
+        from django import forms
+        from .models import Employee
+
+        class EmployeeForm(forms.ModelForm):
+            class Meta:
+                model = Employee
+                fields = "__all__"
+
+
+
+### Explanation
+This is a Django form definition for the Employee model. Let me break it down:
+
+from django import forms: This imports the necessary forms module from Django.<br><br>
+
+from .models import Employee: This imports the Employee model from the same directory (package) where this form is defined. The dot (.) indicates the current directory.<br><br>
+
+class EmployeeForm(forms.ModelForm): This defines a form class named EmployeeForm that inherits from forms.ModelForm. By using forms.ModelForm as the base class, this form will be automatically generated based on the Employee model.<br><br>
+
+class Meta:: This is an inner class within EmployeeForm that provides metadata for the form.<br><br>
+
+model = Employee: This specifies the model that the form is associated with, in this case, the Employee model.<br><br>
+
+fields = "__all__": This indicates that all fields from the Employee model should be included in the form. Alternatively, you can specify a list of fields if you want only certain fields to be included. For example, fields = ['name', 'age', 'position'] would include only the name, age, and position fields from the Employee model in the form <br><br>
+
+
+#### Step 8
+Before creating the CRUD application, we first create a second navbar to be used in Linking our employee CRUD app. In templates Folder create a File named nav.html and write below Code inside.
+
+        <section class="row">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">    
+            <nav class="navbar navbar-expand-lg navbar-light bg-light ml-4">
+            <a class="navbar-brand" href="#">Employee Manager</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/home">Home</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/emp">Add New Record</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/show">Show Employees</span></a>
+                </li>
+                </ul>
+                
+            </div>
+            </nav>
+        </section>
+
+
+
+#### Step 9
+In the next steps, we create our CRUD application, we start by Adding Employee to the database.
+In templates folder, create a file named index.html and write below code. In below code we bind the inputs from forms.py, we also use {% csrf_token %}  for security purposes. <br>
+We also include the nav.html and our form has a method POST and an action to /emp route. <br>
+
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Index</title>
+            {% load static %}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        </head>
+        <body>
+
+        {% include 'nav.html'%}
+        <form method="POST" class="post-form" action="/emp">
+		{% csrf_token %}
+
+            <div class="container">
+                <br>
+                <div class="form-group row">
+                <label class="col-sm-1 col-form-lable"></label>	
+                    <div class="col-sm-4">
+                        <h3>Enter Details</h3>
+                    </div>
+                </div>
+            
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-lable">Employee ID : </label>
+                    <div class="col-sm-4">
+                        {{ form.eid }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-lable">Employee Name : </label>
+                    <div class="col-sm-4">
+                        {{ form.ename }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-lable">Employee Email : </label>
+                    <div class="col-sm-4">
+                        {{ form.eemail }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-lable">Employee Contact : </label>
+                    <div class="col-sm-4">
+                        {{ form.econtact }}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+        </form>
+        </body>
+        </html>
 
 
 
 
+#### Step 10
+Our form above has an actiion to /emp route, this is the route that will handle the Save functionality.
 
+        <form method="POST" class="post-form" action="/emp">  
+
+Next, open views.py, and write below code.
+        def emp(request):
+            if request.method == "POST":
+                form = EmployeeForm (request.POST) # here "form" is one varible
+                if form.is_valid():
+                    try:
+                        form.save()
+                        return redirect("/show")
+                    except:
+                        pass
+            else:
+                form = EmployeeForm()
+            return render(request,"index.html",{'form':form})
+
+
+
+Then add below path in your app urls.py. <br>
+        path('emp', views.emp, name='employees'),
+
+
+Run your Project.
+python3 manage.py runserver
+
+In Browser open   http://127.0.0.1:8000/emp
+
+You will be able to save data to database <br>
+
+![Alt text](image-5.png)
 
 
 
