@@ -1080,7 +1080,7 @@ You will be able to Delete an employee data from database <br>
 
 
 
-In this Django Projects we learned different aspects of Django including Project structure, Settings, Url Paths, MySQL Database, Migratiions, Views, Models, Forms, Templates, Static Files.
+In this Django Project, we learned different aspects of Django including Project structure, Settings, Url Paths, MySQL Database, Migratiions, Views, Models, Forms, Templates, Static Files.
 The application developed allows us to view the Tennis Club Website and a  Database Driven Employee Manager Application.
 
 END.
