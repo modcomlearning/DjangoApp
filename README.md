@@ -639,6 +639,7 @@ In your project Folder, Open __init__.py,  and paste below code <br>
      pymysql.install_as_MySQLdb()
 
 Then in settings.py, add modify the database connections. <br>
+
      DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
