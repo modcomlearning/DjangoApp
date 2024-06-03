@@ -655,6 +655,7 @@ Above code connects to our 'mydb' database in Xampp Localhost.
 #### Step 4 : Migrations
 In this step we need to migrate our applications so that it can connect to mysql and create neccessary tables.
 In Terminal, while under your members application folder type below two commands <br><br>
+
     python3 manage.py makemigrations
 
     python3 manage.py migrate
@@ -683,6 +684,7 @@ In this step we need to migrate our applications so that it can connect to mysql
 After below migrations, Confirm in your 'mydb', ifthe employee table is create as per above table. <br>
 
 In Terminal, while under your members application folder type below two commands <br><br>
+
     python3 manage.py makemigrations
 
     python3 manage.py migrate
@@ -819,6 +821,7 @@ Our form above has an actiion to /emp route, this is the route that will handle 
         <form method="POST" class="post-form" action="/emp">  
 
 Next, open views.py, and write below code.
+
         def emp(request):
             if request.method == "POST":
                 form = EmployeeForm (request.POST) # here "form" is one varible
@@ -835,10 +838,12 @@ Next, open views.py, and write below code.
 
 
 Then add below path in your app urls.py. <br>
+
         path('emp', views.emp, name='employees'),
 
 
 Run your Project.
+
 python3 manage.py runserver
 
 In Browser open   http://127.0.0.1:8000/emp
