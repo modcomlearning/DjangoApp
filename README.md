@@ -843,27 +843,84 @@ Then add below path in your app urls.py. <br>
         path('emp', views.emp, name='employees'),
 
 
-Run your Project.
+#### Run your Project.
 
-python3 manage.py runserver
+    python3 manage.py runserver
 
 In Browser open   http://127.0.0.1:8000/emp
 
-You will be able to save data to database <br>
+You will be able to save employee data to database <br>
 
 ![Alt text](image-5.png)
 
 
+#### Step 11
+In this step you will learn how to view employee data from the database <br>
+
+in views.py, write below view route.<br>
+
+        def show(request):
+            employees = Employee.objects.all() # it's select query,select all data store in employees varible
+            return render(request,"show.html",{'employees': employees})
+
+In templates Folder create a file named 'show.html' and write below code to render employee data in HTML. <br>
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Employee Record</title>
+                {% load static %}
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        </head>
+        <body>
+
+            {% include 'nav.html'%}
+            <div class="container">
+            <table class="table table-striped table-bordered table-sm">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Employee Name</th>
+                        <th>Employee Email</th>
+                        <th>Employee Contact</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                    <tr>
+                        <td>{{ employee.eid }}</td>
+                        <td>{{ employee.ename }}</td>
+                        <td>{{ employee.eemail }}</td>
+                        <td>{{ employee.econtact }}</td>
+                        <td>
+                            <a href="/edit/{{ employee.id}}"><span class="glyphicon glyphicon-pencil">Edit</span></a> | 
+                            <a href="/delete/{{ employee.id}}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <center><a href="/emp" class="btn btn-primary">Add New Record</a></center>
+        </div>
+        </body>
+        </html>
+
+Then add below path in your app urls.py. <br>
+
+            path('show', views.show, name='show'),
 
 
 
+#### Run your Project.
 
+    python3 manage.py runserver
 
+In Browser open   http://127.0.0.1:8000/show
 
+You will be able to view employee data from database <br>
 
-
-
-
+![Alt text](image-6.png)
 
 
 
