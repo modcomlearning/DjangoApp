@@ -18,7 +18,8 @@ View - A request handler that returns the relevant template and content - based 
 Template - A text file (like an HTML file) containing the layout of the web page, with logic on how to display the data.
 <br> <br>
 
-## Creating a Website in Django
+### Part1
+#### Creating a Website in Django
 In this Section, we will create a Django based website named 'my tennis club'. Its a website for a Tenis Club.
 <br><br>
 
@@ -615,7 +616,7 @@ Your navbar should navigate to players route.
 Assignment.
 TODO Fixtures and Gallery.
 
-
+#### End of Part1
 
 ## Part 2
 In this section we will advance our tennis club website to include CRUD Operations, This will demonstrate how to SAVE records to Database, RETRIEVE records, UPDATE records and Delete records. MySQL will be used as our database.
@@ -632,9 +633,11 @@ Create a Database named 'mydb'.
 
 #### Step 3
 In Django application install pymysql using below command <br>
+
      pip3 install pymysql
 
 In your project Folder, Open __init__.py,  and paste below code <br>
+
      import pymysql 
      pymysql.install_as_MySQLdb()
 
@@ -1010,7 +1013,14 @@ Open views.py, and write below code. <br>
 
 
 
-#### Run your Project.
+
+Then add below paths in your app urls.py <br>
+
+     path('edit/<id>', views.edit, name='edit'),
+     path('update/<id>', views.update, name='update'),
+
+
+### Run your project
 
     python3 manage.py runserver
 
@@ -1021,3 +1031,62 @@ Click on Edit and Edit a record.
 You will be able to Edit employee data from database <br>
 
 ![Alt text](image-7.png)
+
+
+#### Step 13
+In this section, you will learn how to delete a record in Django <br>
+Open views.py and write below code<br>
+
+    def delete(request,id):
+        employee = Employee.objects.get(id=id)
+        employee.delete()
+        return redirect("/show")
+
+
+
+
+
+Then add below path in your app urls.py. <br>
+
+        path('delete/<id>/', views.delete, name='delete'),
+
+Please note that above view will be accessed from /show route when the delete button is clicked.
+Below code appears in show.html, it accesses the /delete route  and parses the iD to be deleted<br>
+
+        <a href="/delete/{{ employee.id}}">Delete</a>
+
+#### End of Part2
+
+in navbar.html add a Link to /show, this will help the website created in Part 1 Link to be emmployee manager application.
+
+           <li class="nav-item">
+            <a class="nav-link" href="/show">Employee Manager</a>
+          </li>
+
+
+
+### Run your project
+
+    python3 manage.py runserver
+
+In Browser open   http://127.0.0.1:8000/show
+
+Click on Delete and Delete a record.
+
+You will be able to Delete an employee data from database <br>
+
+
+
+
+
+
+In this Django Projects we learned different aspects of Django including Project structure, Settings, Url Paths, MySQL Database, Migratiions, Views, Models, Forms, Templates, Static Files.
+The application developed allows us to view the Tennis Club Website and a  Database Driven Employee Manager Application.
+
+END.
+
+#### Other Modules
+
+ - Django Admin   -  https://docs.djangoproject.com/en/5.0/ref/contrib/admin/
+
+ - Django Authentication System  - https://docs.djangoproject.com/en/5.0/topics/auth/
