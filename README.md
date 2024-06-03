@@ -924,3 +924,100 @@ You will be able to view employee data from database <br>
 
 
 
+#### Step 12
+In this steo you will learn how to update records in the database, First we will retrieve the records and bind them in the Form to allow a user to update them and submit and update. First, Open views.py and Write below View Code <br>
+
+    def edit(request,id):
+        employee = Employee.objects.get(id=id)
+        return render(request,"edit.html",{'employee':employee})
+
+Then create create edit.html to bind data returned by above View, in edit.html write below code. <br>
+        
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Index</title>
+            {% load static %}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+            <!-- <link rel="stylesheet" type="text/css" href="{% static '/style.css' %}"/> -->
+        </head>
+        <body>
+            {% include 'nav.html'%}
+        <form method="POST" class="post-form" action="/update/{{employee.id}}">
+                {% csrf_token %}
+
+            <div class="container">
+                <br>
+                <div class="form-group row">
+                <label class="col-sm-1 col-form-lable"></label>	
+                    <div class="col-sm-4">
+                        <h3>Update Details</h3>
+                    </div>
+                </div>
+            
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-lable">Employee ID : </label>
+                    <div class="col-sm-4">
+                        <input type="text" name="eid" id="id_eid" value="{{ employee.eid }}"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-lable">Employee Name : </label>
+                    <div class="col-sm-4">
+                        <input type="text" name="ename" id="id_ename" value="{{ employee.ename }}"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-lable">Employee Email : </label>
+                    <div class="col-sm-4">
+                        <input type="text" name="eemail" id="id_eemail" value="{{ employee.eemail }}"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-lable">Employee Contact : </label>
+                    <div class="col-sm-4">
+                        <input type="text" name="econtact" id="id_econtact" value="{{ employee.econtact }}"/>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">Update</button>
+            </div>
+
+        </form>
+        </body>
+        </html>
+
+
+In above form, please note the form action. It actions to //update/{{employee.id}}.
+It navigates to /update route and provides the employee.id.
+
+        <form method="POST" class="post-form" action="/update/{{employee.id}}
+
+
+We need to create this View for update and receive the employee ID. <br>
+Open views.py, and write below code. <br>
+
+       def update(request,id):
+            employee = Employee.objects.get(id=id)
+            form = EmployeeForm(request.POST, instance=employee)
+            if form.is_valid():
+                form.save()
+                return redirect('/show')
+            return render(request,"edit.html",{'employee':employee})
+
+
+
+#### Run your Project.
+
+    python3 manage.py runserver
+
+In Browser open   http://127.0.0.1:8000/show
+
+Click on Edit and Edit a record.
+
+You will be able to Edit employee data from database <br>
+
+![Alt text](image-7.png)

@@ -62,6 +62,8 @@ def delete(request,id):
 	employee.delete()
 	return redirect("/show")
 
+
+
 def home(request):
 	return render(request,"home.html")
 
