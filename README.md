@@ -709,31 +709,57 @@ Each field in the model should be an instance of the appropriate Field class. Dj
 
 #### Fields Types<br>
 AutoField 	It is an IntegerField that automatically increments.<br>
+
 BigAutoField 	It is a 64-bit integer, much like an AutoField except that it is guaranteed to fit numbers from 1 to 9223372036854775807. <br>
+
 BigIntegerField 	It is a 64-bit integer, much like an IntegerField except that it is guaranteed to fit numbers from -9223372036854775808 to 9223372036854775807.<br>
+
 BinaryField 	A field to store raw binary data. <br>
+
 BooleanField 	A true/false field. <br>
+
 The default form widget for this field is a CheckboxInput.<br>
+
 CharField 	A field to store text-based values.<br>
+
 DateField 	A date, represented in Python by a datetime.date instance<br>
+
 DateTimeField 	It is used for date and time, represented in Python by a datetime.datetime instance.<br>
+
 DecimalField 	It is a fixed-precision decimal number, represented in Python by a Decimal instance.<br>
+
 DurationField 	A field for storing periods of time.<br>
+
 EmailField 	It is a CharField that checks that the value is a valid email address.<br>
+
 FileField 	It is a file-upload field.<br>
+
 FloatField 	It is a floating-point number represented in Python by a float instance.<br>
+
 ImageField 	It inherits all attributes and methods from FileField, but also validates that the uploaded object is a valid image.<br>
+
 IntegerField 	It is an integer field. Values from -2147483648 to 2147483647 are safe in all databases supported by Django.<br>
+
 GenericIPAddressField 	An IPv4 or IPv6 address, in string format (e.g. 192.0.2.30 or 2a02:42fe::4).<br>
+
 NullBooleanField 	Like a BooleanField, but allows NULL as one of the options.<br>
+
 PositiveIntegerField 	Like an IntegerField, but must be either positive or zero (0).<br>
+
 PositiveSmallIntegerField 	Like a PositiveIntegerField, but only allows values under a certain (database-dependent) point.<br>
+
 SlugField 	Slug is a newspaper term. A slug is a short label for something, containing only letters, numbers, underscores or hyphens. They’re generally used in URLs.<br>
+
 SmallIntegerField 	It is like an IntegerField, but only allows values under a certain (database-dependent) point.<br>
+
 TextField 	A large text field. The default form widget for this field is a Textarea.<br>
+
 TimeField 	A time, represented in Python by a datetime.time instance.<br>
+
 URLField 	A CharField for a URL, validated by URLValidator.<br>
+
 UUIDField 	A field for storing universally unique identifiers. Uses Python’s UUID class. When used on PostgreSQL, this stores in a uuid datatype, otherwise in a char(32).<br>
+
 
 
 
@@ -741,8 +767,11 @@ UUIDField 	A field for storing universally unique identifiers. Uses Python’s U
 
 Django also defines a set of fields that represent relations. <br>
 <br><br>
+
 ForeignKey 	A many-to-one relationship. Requires two positional arguments: the class to which the model is related and the on_delete option.<br>
+
 ManyToManyField 	A many-to-many relationship. Requires a positional argument: the class to which the model is related, which works exactly the same as it does for ForeignKey, including recursive and lazy relationships.<br>
+
 OneToOneField 	A one-to-one relationship. Conceptually, this is similar to a ForeignKey with unique=True, but the “reverse” side of the relation will directly return a single object.<br>
 
 
@@ -754,6 +783,7 @@ Player Model - This model will store Player details, including Foreign Keys for 
 Payment Model - will be used in storing Player payments details <br>
 TrainingKitCollection Model - will store data on Training Kits collection by players <br>
 <br>
+
 In models.py , write below codes for our 5 models <br>
 
         from django.db import models
