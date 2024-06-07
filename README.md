@@ -658,7 +658,7 @@ Then in settings.py, add modify the database connections. <br>
 Above code connects to our 'mydb' database in Xampp Localhost.
 
 #### Step 4 : Migrations and Models
-In this step we need to migrate our applications so that it can connect to mysql and create neccessary tables.
+In this step we need to migrate our application so that it can connect to mysql and create neccessary tables.
 In Terminal, while under your members application folder type below two commands <br><br>
 
     python3 manage.py makemigrations
@@ -771,19 +771,23 @@ UUIDField 	A field for storing universally unique identifiers. Uses Python’s U
 Django also defines a set of fields that represent relations. <br>
 <br><br>
 
-ForeignKey 	A many-to-one relationship. Requires two positional arguments: the class to which the model is related and the on_delete option.<br>
+<b>ForeignKey</b> 	A many-to-one relationship. Requires two positional arguments: the class to which the model is related and the on_delete option.<br>
 
-ManyToManyField 	A many-to-many relationship. Requires a positional argument: the class to which the model is related, which works exactly the same as it does for ForeignKey, including recursive and lazy relationships.<br>
+<b>ManyToManyField</b> 	A many-to-many relationship. Requires a positional argument: the class to which the model is related, which works exactly the same as it does for ForeignKey, including recursive and lazy relationships.<br>
 
-OneToOneField 	A one-to-one relationship. Conceptually, this is similar to a ForeignKey with unique=True, but the “reverse” side of the relation will directly return a single object.<br>
+<b>OneToOneField</b> 	A one-to-one relationship. Conceptually, this is similar to a ForeignKey with unique=True, but the “reverse” side of the relation will directly return a single object.<br>
 
 
 
 Below we create a 5 models for our club web applications, 
 Trainer Model - will store data for club Trainers <br>
+
 Club Model - will store data for different club names within the larger tennis club<br>
+
 Player Model - This model will store Player details, including Foreign Keys for Trainer and Clun they belong <br>
+
 Payment Model - will be used in storing Player payments details <br>
+
 TrainingKitCollection Model - will store data on Training Kits collection by players <br>
 <br>
 
@@ -854,7 +858,7 @@ In models.py , write below codes for our 5 models <br>
 
 
 
-In this step we need to migrate our applications so that it can connect to mysql and create neccessary tables.
+In this step we need to migrate our application so that it can connect to mysql and create neccessary tables.
 In Terminal, while under your members application folder type below two commands <br><br>
 
     python3 manage.py makemigrations
@@ -886,6 +890,12 @@ Add below code in admin.py <br>
 
 
 
+In this step we need to migrate our application adds the model to Django Admin <br><br>
+
+    python3 manage.py makemigrations
+
+    python3 manage.py migrate
+
 ### Create Django Admin User
 To be able to log into the admin application, we need to create a user.
 This is done by typing this command in the command view - (while in your project directory in Terminal)
@@ -894,22 +904,33 @@ Which will give this prompt:
 Username:
 <br>
 Here you must enter: username, e-mail address, (you can just pick a fake e-mail address), and password:
+
 Username: johndoe
+
 Email address: johndoe@dummymail.com
+
 Password:
+
 Password (again):
+
 This password is too short. It must contain at least 8 characters.
+
 This password is too common.
+
 This password is entirely numeric.
+
 Bypass password validation and create user anyway? [y/N]:
 <br><br>
+
 My password did not meet the criteria, but this is a test environment, and I choose to create user anyway, by enter y:
+
 Bypass password validation and create user anyway? [y/N]: y
 <br><br>
+
 If you press [Enter], you should have successfully created a user:
 Superuser created successfully.
 
-
+<br>
 Now Run your app.
 
     python3 manage.py runserver
