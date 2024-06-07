@@ -704,8 +704,11 @@ below are data types used in creting model Fields <br><br>
 Each field in the model should be an instance of the appropriate Field class. Django uses field class types to determine a few things: 
 
 1. The column type, which tells the database what kind of data to store (e.g. INTEGER, VARCHAR, TEXT).<br>
-2. The default HTML widget to use when rendering a form field (e.g. <input type=”text”>, <select>).<br>
+
+2. The default HTML widget to use when rendering a form field <br>
+
 3. The minimal validation requirements, used in Django’s admin and in automatically-generated forms.<br>
+
 
 #### Fields Types<br>
 AutoField 	It is an IntegerField that automatically increments.<br>
