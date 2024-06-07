@@ -765,7 +765,6 @@ UUIDField 	A field for storing universally unique identifiers. Uses Python’s U
 
 
 
-
 ### Relationship Fields
 
 Django also defines a set of fields that represent relations. <br>
@@ -778,8 +777,8 @@ Django also defines a set of fields that represent relations. <br>
 <b>OneToOneField</b> 	A one-to-one relationship. Conceptually, this is similar to a ForeignKey with unique=True, but the “reverse” side of the relation will directly return a single object.<br>
 
 
-
-Below we create a 5 models for our club web applications, 
+Below we create  5 models for our club web application,
+ 
 Trainer Model - will store data for club Trainers <br>
 
 Club Model - will store data for different club names within the larger tennis club<br>
