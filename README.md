@@ -616,10 +616,10 @@ Your navbar should navigate to players route.
 Assignment.
 TODO Fixtures and Gallery.
 
-#### End of Part1
+### End of Part1
 
 
-## Part 2
+### Part 2
 In this section we will advance our tennis club website to include CRUD Operations, This will demonstrate how to SAVE records to Database, RETRIEVE records, UPDATE records and Delete records. MySQL will be used as our database.
 
 #### Step 1
@@ -673,7 +673,7 @@ Please confirm in your database that django default tables have been created in 
 A model is the single, definitive source of information about your data. It contains the essential fields and behaviors of the data you’re storing. Generally, each model maps to a single database table.
 
 
-### Quick example
+#### Step 5:  Quick example
 
 This example model defines a Person, which has a first_name and last_name:
 
@@ -778,7 +778,7 @@ Django also defines a set of fields that represent relations. <br>
 
 
 Below we create  5 models for our club web application,
- 
+
 Trainer Model - will store data for club Trainers <br>
 
 Club Model - will store data for different club names within the larger tennis club<br>
@@ -790,6 +790,7 @@ Payment Model - will be used in storing Player payments details <br>
 TrainingKitCollection Model - will store data on Training Kits collection by players <br>
 <br>
 
+### Step 6
 In models.py , write below codes for our 5 models <br>
 
         from django.db import models
@@ -895,7 +896,7 @@ In this step we need to migrate our application adds the model to Django Admin <
 
     python3 manage.py migrate
 
-### Create Django Admin User
+### Step 7: Create Django Admin User
 To be able to log into the admin application, we need to create a user.
 This is done by typing this command in the command view - (while in your project directory in Terminal)
 <br><br>
@@ -940,9 +941,12 @@ And fill in the form with the correct username and password:
 
 ![Alt text](image-8.png)
 
+![Alt text](image-9.png)
 
+### End of Part2
 
-#### Step 5: Creating Employees Model
+### Part 3
+#### Step 1: Creating Employees Model
 Open models.py, write below code that will be used in Saving data to the database.
 
         from django.db import models
@@ -959,7 +963,7 @@ Open models.py, write below code that will be used in Saving data to the databas
                 return self.ename
 
 
-#### Step 6 : Migrations
+#### Step 2 : Migrations
 In this step we need to migrate our applications so that it can connect to mysql and create employee table.<br><br>
 After below migrations, Confirm in your 'mydb', ifthe employee table is create as per above table. <br>
 
@@ -970,7 +974,7 @@ In Terminal, while under your members application folder type below two commands
     python3 manage.py migrate
 
 
-#### Step 7
+#### Step 3
 In your members app Folder, Create a File named forms.py,  and write below code.
 
         from django import forms
@@ -999,7 +1003,7 @@ model = Employee: This specifies the model that the form is associated with, in 
 fields = "__all__": This indicates that all fields from the Employee model should be included in the form. Alternatively, you can specify a list of fields if you want only certain fields to be included. For example, fields = ['name', 'age', 'position'] would include only the name, age, and position fields from the Employee model in the form <br><br>
 
 
-#### Step 8
+#### Step 4
 Before creating the CRUD application, we first create a second navbar to be used in Linking our employee CRUD app. In templates Folder create a File named nav.html and write below Code inside.
 
         <section class="row">
@@ -1029,7 +1033,7 @@ Before creating the CRUD application, we first create a second navbar to be used
 
 
 
-#### Step 9
+#### Step 5
 In the next steps, we create our CRUD application, we start by Adding Employee to the database.
 In templates folder, create a file named index.html and write below code. In below code we bind the inputs from forms.py, we also use {% csrf_token %}  for security purposes. <br>
 We also include the nav.html and our form has a method POST and an action to /emp route. <br>
@@ -1095,7 +1099,7 @@ We also include the nav.html and our form has a method POST and an action to /em
 
 
 
-#### Step 10
+#### Step 6
 Our form above has an actiion to /emp route, this is the route that will handle the Save functionality.
 
         <form method="POST" class="post-form" action="/emp">  
@@ -1133,7 +1137,7 @@ You will be able to save employee data to database <br>
 ![Alt text](image-5.png)
 
 
-#### Step 11
+#### Step 7
 In this step you will learn how to view employee data from the database <br>
 
 in views.py, write below view route.<br>
@@ -1203,7 +1207,7 @@ You will be able to view employee data from database <br>
 
 
 
-#### Step 12
+#### Step 8
 In this steo you will learn how to update records in the database, First we will retrieve the records and bind them in the Form to allow a user to update them and submit and update. First, Open views.py and Write below View Code <br>
 
     def edit(request,id):
@@ -1309,7 +1313,7 @@ You will be able to Edit employee data from database <br>
 ![Alt text](image-7.png)
 
 
-#### Step 13
+#### Step 9
 In this section, you will learn how to delete a record in Django <br>
 Open views.py and write below code<br>
 
@@ -1330,7 +1334,7 @@ Below code appears in show.html, it accesses the /delete route  and parses the i
 
         <a href="/delete/{{ employee.id}}">Delete</a>
 
-#### End of Part2
+### End of Part3
 
 in navbar.html add a Link to /show, this will help the website created in Part 1 Link to be emmployee manager application.
 
@@ -1359,7 +1363,5 @@ The application developed allows us to view the Tennis Club Website and a  Datab
 END.
 
 #### Other Modules
-
- - Django Admin   -  https://docs.djangoproject.com/en/5.0/ref/contrib/admin/
 
  - Django Authentication System  - https://docs.djangoproject.com/en/5.0/topics/auth/
